@@ -4,7 +4,7 @@
   gap: 2rem;
   justify-content: center;
   padding-top: 5rem;
-  padding-inline: 15rem;
+  padding-inline: clamp(2rem, 5vw, 15rem);
 
   & > button {
     all: unset;
@@ -78,5 +78,4 @@
   background-image: linear-gradient(135deg, #ff00ff, #ff007f, #7f00ff);
   color: transparent;
   background-clip: text;
-  font-size: 3rem;
 }

@@ -3,7 +3,7 @@
   padding: 1rem;
   display: flex;
   align-items: center;
-  gap: 5rem;
+  gap: clamp(2rem, 5vw, 5rem);
 
   & img {
     object-fit: contain;
@@ -12,7 +12,7 @@
   & ul {
     display: flex;
     align-items: center;
-    gap: 4rem;
+    gap: clamp(1rem, 4vw, 8rem);
     list-style-type: none;
 
     & li {
