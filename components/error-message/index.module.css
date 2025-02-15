@@ -1,0 +1,10 @@
+.container {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  & h3 {
+    color: rgb(252, 107, 107);
+  }
+}

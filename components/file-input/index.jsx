@@ -4,16 +4,20 @@ import Image from 'next/image'
 import uploadFileIcon from '@/assets/icons/upload-file.svg'
 import audioFileIcon from '@/assets/icons/audio-file.svg'
 import { formatFileSize } from '@/utils/functions/formatFileSize'
+import ErrorMessage from '../error-message'
 
 const FileInput = () => {
   const [uploadedAudio, setUploadedAudio] = useState(null)
+  const [error, setError] = useState(null)
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0]
     if (file && file.type.startsWith('audio/')) {
+      setError(null)
       setUploadedAudio(file)
     } else {
-      alert('Please upload a valid audio file.')
+      setUploadedAudio(null)
+      setError('Please upload a valid audio file.')
     }
   }
 
@@ -41,6 +45,7 @@ const FileInput = () => {
         accept='audio/*'
         onChange={handleFileUpload}
       />
+      {error && <ErrorMessage message={error} />}
     </section>
   )
 }
