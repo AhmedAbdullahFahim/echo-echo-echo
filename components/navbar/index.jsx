@@ -22,7 +22,6 @@ const Navbar = () => {
       href: '/echo',
     },
   ]
-  console.log('pathname', pathname)
 
   return (
     <nav className={styles.nav}>
