@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import AudioRecorder from '@/components/audio-recorder'
 import FileInput from '@/components/file-input'
 import styles from './page.module.css'
@@ -12,8 +12,12 @@ import { convertToBase64 } from '@/utils/functions/convertToBase64'
 const EchoPage = () => {
   const [audioSrc, setAudioSrc] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [natiqWords, setNatiqWords] = useState([])
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
+  const [currentTime, setCurrentTime] = useState(0)
+
+  const resultAudioRef = useRef(null)
 
   const callKatib = () => {
     setLoading(true)
@@ -79,6 +83,7 @@ const EchoPage = () => {
     fetch('https://echo-6sdzv54itq-uc.a.run.app/natiq', requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        setNatiqWords(result.durations)
         const convertedResult = convertToBase64(result.wave)
         playAudio(convertedResult)
         setError(null)
@@ -91,6 +96,19 @@ const EchoPage = () => {
         setLoading(false)
       })
   }
+
+  useEffect(() => {
+    const audio = resultAudioRef.current
+
+    if (audio) {
+      const updateTime = () => setCurrentTime(audio.currentTime)
+      audio.addEventListener('timeupdate', updateTime)
+
+      return () => {
+        audio.removeEventListener('timeupdate', updateTime)
+      }
+    }
+  }, [result])
 
   const playAudio = (audioFile) => {
     try {
@@ -130,10 +148,32 @@ const EchoPage = () => {
           {result && (
             <div className={styles.audioPlayer}>
               <h5 className={styles.gradientText}>Echoed result!</h5>
-              <audio autoPlay controls src={result} className={styles.audio}>
+              <audio
+                ref={resultAudioRef}
+                autoPlay
+                controls
+                src={result}
+                className={styles.audio}
+              >
                 Your browser does not support the audio tag
               </audio>
             </div>
+          )}
+          {natiqWords.length > 0 && (
+            <p className={styles.text}>
+              {natiqWords.map((item) => (
+                <span
+                  key={item[1]}
+                  className={
+                    currentTime >= item[1] && currentTime <= item[2]
+                      ? styles.highlightedText
+                      : ''
+                  }
+                >
+                  {item[0]}
+                </span>
+              ))}
+            </p>
           )}
           {error && <ErrorMessage message={error} />}
         </div>

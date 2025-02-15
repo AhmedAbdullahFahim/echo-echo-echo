@@ -71,6 +71,23 @@
         width: 60%;
       }
     }
+
+    & > .text {
+      max-width: 60%;
+      font-size: 1.5rem;
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 5px;
+      align-self: center;
+      padding-inline-start: 1.5rem;
+      & > .highlightedText {
+        padding-inline: 0.5rem;
+        background: linear-gradient(135deg, #ff00ff, #ff007f, #7f00ff);
+        border-radius: 4px;
+      }
+    }
   }
 }
 
