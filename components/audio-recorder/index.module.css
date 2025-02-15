@@ -1,0 +1,120 @@
+.section {
+  width: 100%;
+  min-height: 8rem;
+  background: #181d28;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all ease-in-out 300ms;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    height: 100%;
+    background: linear-gradient(135deg, #ff00ff, #ff007f, #7f00ff);
+    opacity: 0;
+    transition: opacity ease-in-out 300ms;
+    z-index: 1;
+  }
+
+  & .startRecording {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 0.5rem;
+
+    & > button {
+      all: unset;
+      cursor: pointer;
+      height: 100%;
+      background: linear-gradient(135deg, #ff00ff, #ff007f, #7f00ff);
+      width: 60px;
+      height: 60px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & > img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+    & h4 {
+      font-size: 1.2rem;
+    }
+  }
+
+  & .recorder {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.2rem;
+
+    & .rec {
+      background-color: #181d28;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      & .recording {
+        background-color: #ff007f;
+        width: 10px;
+        height: 10px;
+        border-radius: 5px;
+      }
+    }
+
+    & .timer {
+      background-color: #181d28;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    & .recorderControls {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+
+      & > button {
+        background-color: #181d28;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.recordingBackground::before {
+  opacity: 1;
+}
